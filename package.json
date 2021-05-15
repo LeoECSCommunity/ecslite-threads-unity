@@ -1,0 +1,22 @@
+{
+    "name": "com.leopotam.ecslite.unity.jobs",
+    "author": "Leopotam",
+    "displayName": "LeoECS Lite Unity Jobs",
+    "description": "LeoECS Lite Unity Jobs support for LeoECS Lite.",
+    "unity": "2020.3",
+    "version": "2021.5.22-preview",
+    "keywords": [
+        "leoecslite",
+        "leoecs",
+        "ecs",
+        "performance",
+        "jobs"
+    ],
+    "dependencies": {
+        "com.unity.burst": "1.4.8"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Leopotam/ecslite-unity-jobs.git"
+    }
+}
