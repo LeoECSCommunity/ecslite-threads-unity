@@ -4,8 +4,6 @@
 // Copyright (c) 2021 Leopotam <leopotam@gmail.com>
 // -------------------------------------------------------------------------------------
 
-using Leopotam.EcsLite;
-using Leopotam.EcsLite.Threads.Unity;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.Jobs;
@@ -219,40 +217,5 @@ namespace Leopotam.EcsLite.Threads.Unity {
             public AtomicSafetyHandle SafetyHandle;
 #endif
         }
-    }
-}
-
-struct C1 {
-    public int Id;
-}
-
-class TestJobSystem : EcsUnityJobSystem<TestJob, C1> {
-    protected override int GetChunkSize (EcsSystems systems) {
-        return 100;
-    }
-
-    protected override EcsFilter GetFilter (EcsWorld world) {
-        return world.Filter<C1> ().End ();
-    }
-
-    protected override EcsWorld GetWorld (EcsSystems systems) {
-        return systems.GetWorld ();
-    }
-}
-
-struct TestJob : IEcsUnityJob<C1> {
-    NativeArray<int> _entities;
-    NativeArray<JobPoolItem<C1>> _pool;
-
-    public void Init (NativeArray<int> entities, NativeArray<JobPoolItem<C1>> pool) {
-        _entities = entities;
-        _pool = pool;
-    }
-
-    public void Execute (int index) {
-        var entity = _entities[index];
-        var c1 = _pool[entity];
-        c1.Data.Id++;
-        _pool[entity] = c1;
     }
 }

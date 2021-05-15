@@ -1,5 +1,5 @@
 # Unity Jobs support for LeoEcsLite C# Entity Component System framework
-Unity jobs support as ecs-systems.
+Unity jobs support for [LeoECS Lite](https://github.com/Leopotam/ecslite).
 
 > Tested on unity 2020.3 (dependent on it) and contains assembly definition for compiling to separate assembly file for performance reason.
 
