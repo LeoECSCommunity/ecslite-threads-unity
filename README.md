@@ -47,7 +47,8 @@ struct C1 {
 class TestJobSystem : EcsUnityJobSystem<TestJob, C1> {
     protected override int GetChunkSize (EcsSystems systems) {
         // How many entities will be processed in one chunk.
-        return 100;
+        // This method will be called each frame.
+        return 1000;
     }
 
     protected override EcsWorld GetWorld (EcsSystems systems) {
@@ -61,7 +62,7 @@ class TestJobSystem : EcsUnityJobSystem<TestJob, C1> {
     }
     
     // Optional additional initialization of job structure.
-    protected override void SetData (ref TestJob job) {
+    protected override void SetData (EcsSystems systems, ref TestJob job) {
         job.DeltaTime = Time.deltaTime;
     }
 }
