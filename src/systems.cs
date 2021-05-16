@@ -200,7 +200,7 @@ namespace Leopotam.EcsLite.Threads.Unity {
                 NativeArrayUnsafeUtility.SetAtomicSafetyHandle (ref nativeData, sh);
                 return new NativeWrappedData<T1> { Array = nativeData, SafetyHandle = sh };
 #else
-                return new NativeWrappedData<TTT> { Array = NativeArrayUnsafeUtility.ConvertExistingDataToNativeArray<TTT> (ptr, managedData.Length, Allocator.None) };
+                return new NativeWrappedData<T1> { Array = NativeArrayUnsafeUtility.ConvertExistingDataToNativeArray<T1> (ptr, managedData.Length, Allocator.None) };
 #endif
             }
         }
