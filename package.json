@@ -1,5 +1,5 @@
 {
-    "name": "com.leopotam.ecslite.unity.jobs",
+    "name": "com.leopotam.ecslite.threads.unity",
     "author": "Leopotam",
     "displayName": "LeoECS Lite Unity Jobs",
     "description": "LeoECS Lite Unity Jobs support for LeoECS Lite.",
@@ -12,11 +12,9 @@
         "performance",
         "jobs"
     ],
-    "dependencies": {
-        "com.unity.burst": "1.4.8"
-    },
+    "dependencies": {},
     "repository": {
         "type": "git",
-        "url": "https://github.com/Leopotam/ecslite-unity-jobs.git"
+        "url": "https://github.com/Leopotam/ecslite-threads-unity.git"
     }
 }
