@@ -25,12 +25,15 @@ namespace Leopotam.EcsLite.Threads.Unity {
             var nativePool1 = NativeHelpers.WrapToNative<EcsPool<T1>.PoolItem, JobPoolItem<T1>> (_pool1.GetRawItems ());
             TJob job = default;
             job.Init (nativeEntities.Array, nativePool1.Array);
+            SetData (ref job);
             job.Schedule (_filter.GetEntitiesCount (), GetChunkSize (systems)).Complete ();
 #if UNITY_EDITOR
             NativeHelpers.UnwrapFromNative (nativeEntities);
             NativeHelpers.UnwrapFromNative (nativePool1);
 #endif
         }
+
+        protected virtual void SetData (ref TJob job) { }
     }
 
     public abstract class EcsUnityJobSystem<TJob, T1, T2> : EcsUnityJobSystemBase
@@ -53,6 +56,7 @@ namespace Leopotam.EcsLite.Threads.Unity {
             var nativePool2 = NativeHelpers.WrapToNative<EcsPool<T2>.PoolItem, JobPoolItem<T2>> (_pool2.GetRawItems ());
             TJob job = default;
             job.Init (nativeEntities.Array, nativePool1.Array, nativePool2.Array);
+            SetData (ref job);
             job.Schedule (_filter.GetEntitiesCount (), GetChunkSize (systems)).Complete ();
 #if UNITY_EDITOR
             NativeHelpers.UnwrapFromNative (nativeEntities);
@@ -60,6 +64,8 @@ namespace Leopotam.EcsLite.Threads.Unity {
             NativeHelpers.UnwrapFromNative (nativePool2);
 #endif
         }
+
+        protected virtual void SetData (ref TJob job) { }
     }
 
     public abstract class EcsUnityJobSystem<TJob, T1, T2, T3> : EcsUnityJobSystemBase
@@ -86,6 +92,7 @@ namespace Leopotam.EcsLite.Threads.Unity {
             var nPool3 = NativeHelpers.WrapToNative<EcsPool<T3>.PoolItem, JobPoolItem<T3>> (_pool3.GetRawItems ());
             TJob job = default;
             job.Init (nEntities.Array, nPool1.Array, nPool2.Array, nPool3.Array);
+            SetData (ref job);
             job.Schedule (_filter.GetEntitiesCount (), GetChunkSize (systems)).Complete ();
 #if UNITY_EDITOR
             NativeHelpers.UnwrapFromNative (nEntities);
@@ -94,6 +101,8 @@ namespace Leopotam.EcsLite.Threads.Unity {
             NativeHelpers.UnwrapFromNative (nPool3);
 #endif
         }
+
+        protected virtual void SetData (ref TJob job) { }
     }
 
     public abstract class EcsUnityJobSystem<TJob, T1, T2, T3, T4> : EcsUnityJobSystemBase
@@ -124,6 +133,7 @@ namespace Leopotam.EcsLite.Threads.Unity {
             var nPool4 = NativeHelpers.WrapToNative<EcsPool<T4>.PoolItem, JobPoolItem<T4>> (_pool4.GetRawItems ());
             TJob job = default;
             job.Init (nEntities.Array, nPool1.Array, nPool2.Array, nPool3.Array, nPool4.Array);
+            SetData (ref job);
             job.Schedule (_filter.GetEntitiesCount (), GetChunkSize (systems)).Complete ();
 #if UNITY_EDITOR
             NativeHelpers.UnwrapFromNative (nEntities);
@@ -133,6 +143,8 @@ namespace Leopotam.EcsLite.Threads.Unity {
             NativeHelpers.UnwrapFromNative (nPool4);
 #endif
         }
+
+        protected virtual void SetData (ref TJob job) { }
     }
 
     public abstract class EcsUnityJobSystemBase : IEcsRunSystem {

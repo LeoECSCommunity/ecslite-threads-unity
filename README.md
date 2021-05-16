@@ -59,6 +59,11 @@ class TestJobSystem : EcsUnityJobSystem<TestJob, C1> {
         // Filter for processing.
         return world.Filter<C1> ().End ();
     }
+    
+    // Optional additional initialization of job structure.
+    protected override void SetData (ref TestJob job) {
+        job.DeltaTime = Time.deltaTime;
+    }
 }
 ```
 > **Important!** EcsUnityJobSystem supports up to 4 component pools.
@@ -66,6 +71,7 @@ class TestJobSystem : EcsUnityJobSystem<TestJob, C1> {
 ## Job
 ```csharp
 struct TestJob : IEcsUnityJob<C1> {
+    public float DeltaTime;
     NativeArray<int> _entities;
     NativeArray<JobPoolItem<C1>> _pool;
 
@@ -81,7 +87,7 @@ struct TestJob : IEcsUnityJob<C1> {
         // To get access for C1 data.
         var c1 = _pool[entity];
         // We can change it.
-        c1.Data.Id++;
+        c1.Data.Id = (c1.Data.Id + 1) % 10000;
         // And save back.
         _pool[entity] = c1;
     }
