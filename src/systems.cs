@@ -21,8 +21,8 @@ namespace Leopotam.EcsLite.Threads.Unity {
                 _pool1 = world.GetPool<T1> ();
                 _filter = GetFilter (world);
             }
-            var nativeEntities = NativeHelpers.WrapToNative<int, int> (_filter.GetRawEntities ());
-            var nativePool1 = NativeHelpers.WrapToNative<EcsPool<T1>.PoolItem, JobPoolItem<T1>> (_pool1.GetRawItems ());
+            var nativeEntities = NativeHelpers.WrapToNative (_filter.GetRawEntities ());
+            var nativePool1 = NativeHelpers.WrapToNative (_pool1.GetRawItems ());
             TJob job = default;
             job.Init (nativeEntities.Array, nativePool1.Array);
             SetData (systems, ref job);
@@ -51,9 +51,9 @@ namespace Leopotam.EcsLite.Threads.Unity {
                 _pool2 = world.GetPool<T2> ();
                 _filter = GetFilter (world);
             }
-            var nativeEntities = NativeHelpers.WrapToNative<int, int> (_filter.GetRawEntities ());
-            var nativePool1 = NativeHelpers.WrapToNative<EcsPool<T1>.PoolItem, JobPoolItem<T1>> (_pool1.GetRawItems ());
-            var nativePool2 = NativeHelpers.WrapToNative<EcsPool<T2>.PoolItem, JobPoolItem<T2>> (_pool2.GetRawItems ());
+            var nativeEntities = NativeHelpers.WrapToNative (_filter.GetRawEntities ());
+            var nativePool1 = NativeHelpers.WrapToNative (_pool1.GetRawItems ());
+            var nativePool2 = NativeHelpers.WrapToNative (_pool2.GetRawItems ());
             TJob job = default;
             job.Init (nativeEntities.Array, nativePool1.Array, nativePool2.Array);
             SetData (systems, ref job);
@@ -86,10 +86,10 @@ namespace Leopotam.EcsLite.Threads.Unity {
                 _pool3 = world.GetPool<T3> ();
                 _filter = GetFilter (world);
             }
-            var nEntities = NativeHelpers.WrapToNative<int, int> (_filter.GetRawEntities ());
-            var nPool1 = NativeHelpers.WrapToNative<EcsPool<T1>.PoolItem, JobPoolItem<T1>> (_pool1.GetRawItems ());
-            var nPool2 = NativeHelpers.WrapToNative<EcsPool<T2>.PoolItem, JobPoolItem<T2>> (_pool2.GetRawItems ());
-            var nPool3 = NativeHelpers.WrapToNative<EcsPool<T3>.PoolItem, JobPoolItem<T3>> (_pool3.GetRawItems ());
+            var nEntities = NativeHelpers.WrapToNative (_filter.GetRawEntities ());
+            var nPool1 = NativeHelpers.WrapToNative (_pool1.GetRawItems ());
+            var nPool2 = NativeHelpers.WrapToNative (_pool2.GetRawItems ());
+            var nPool3 = NativeHelpers.WrapToNative (_pool3.GetRawItems ());
             TJob job = default;
             job.Init (nEntities.Array, nPool1.Array, nPool2.Array, nPool3.Array);
             SetData (systems, ref job);
@@ -126,11 +126,11 @@ namespace Leopotam.EcsLite.Threads.Unity {
                 _pool4 = world.GetPool<T4> ();
                 _filter = GetFilter (world);
             }
-            var nEntities = NativeHelpers.WrapToNative<int, int> (_filter.GetRawEntities ());
-            var nPool1 = NativeHelpers.WrapToNative<EcsPool<T1>.PoolItem, JobPoolItem<T1>> (_pool1.GetRawItems ());
-            var nPool2 = NativeHelpers.WrapToNative<EcsPool<T2>.PoolItem, JobPoolItem<T2>> (_pool2.GetRawItems ());
-            var nPool3 = NativeHelpers.WrapToNative<EcsPool<T3>.PoolItem, JobPoolItem<T3>> (_pool3.GetRawItems ());
-            var nPool4 = NativeHelpers.WrapToNative<EcsPool<T4>.PoolItem, JobPoolItem<T4>> (_pool4.GetRawItems ());
+            var nEntities = NativeHelpers.WrapToNative (_filter.GetRawEntities ());
+            var nPool1 = NativeHelpers.WrapToNative (_pool1.GetRawItems ());
+            var nPool2 = NativeHelpers.WrapToNative (_pool2.GetRawItems ());
+            var nPool3 = NativeHelpers.WrapToNative (_pool3.GetRawItems ());
+            var nPool4 = NativeHelpers.WrapToNative (_pool4.GetRawItems ());
             TJob job = default;
             job.Init (nEntities.Array, nPool1.Array, nPool2.Array, nPool3.Array, nPool4.Array);
             SetData (systems, ref job);
@@ -154,18 +154,11 @@ namespace Leopotam.EcsLite.Threads.Unity {
         protected abstract EcsWorld GetWorld (EcsSystems systems);
     }
 
-    public struct JobPoolItem<T> where T : unmanaged {
-#pragma warning disable 169
-        byte _;
-#pragma warning restore 169
-        public T Data;
-    }
-
     public interface IEcsUnityJob<T1> : IJobParallelFor
         where T1 : unmanaged {
         void Init (
             NativeArray<int> entities,
-            NativeArray<JobPoolItem<T1>> pool);
+            NativeArray<T1> pool);
     }
 
     public interface IEcsUnityJob<T1, T2> : IJobParallelFor
@@ -173,8 +166,8 @@ namespace Leopotam.EcsLite.Threads.Unity {
         where T2 : unmanaged {
         void Init (
             NativeArray<int> entities,
-            NativeArray<JobPoolItem<T1>> pool1,
-            NativeArray<JobPoolItem<T2>> pool2);
+            NativeArray<T1> pool1,
+            NativeArray<T2> pool2);
     }
 
     public interface IEcsUnityJob<T1, T2, T3> : IJobParallelFor
@@ -183,9 +176,9 @@ namespace Leopotam.EcsLite.Threads.Unity {
         where T3 : unmanaged {
         void Init (
             NativeArray<int> entities,
-            NativeArray<JobPoolItem<T1>> pool1,
-            NativeArray<JobPoolItem<T2>> pool2,
-            NativeArray<JobPoolItem<T3>> pool3);
+            NativeArray<T1> pool1,
+            NativeArray<T2> pool2,
+            NativeArray<T3> pool3);
     }
 
     public interface IEcsUnityJob<T1, T2, T3, T4> : IJobParallelFor
@@ -195,24 +188,22 @@ namespace Leopotam.EcsLite.Threads.Unity {
         where T4 : unmanaged {
         void Init (
             NativeArray<int> entities,
-            NativeArray<JobPoolItem<T1>> pool1,
-            NativeArray<JobPoolItem<T2>> pool2,
-            NativeArray<JobPoolItem<T3>> pool3,
-            NativeArray<JobPoolItem<T4>> pool4);
+            NativeArray<T1> pool1,
+            NativeArray<T2> pool2,
+            NativeArray<T3> pool3,
+            NativeArray<T4> pool4);
     }
 
     static class NativeHelpers {
-        public static unsafe NativeWrappedData<T1> WrapToNative<T0, T1> (T0[] managedData)
-            where T0 : unmanaged
-            where T1 : unmanaged {
+        public static unsafe NativeWrappedData<T> WrapToNative<T> (T[] managedData) where T : unmanaged {
             fixed (void* ptr = managedData) {
 #if UNITY_EDITOR
-                var nativeData = NativeArrayUnsafeUtility.ConvertExistingDataToNativeArray<T1> (ptr, managedData.Length, Allocator.None);
+                var nativeData = NativeArrayUnsafeUtility.ConvertExistingDataToNativeArray<T> (ptr, managedData.Length, Allocator.None);
                 var sh = AtomicSafetyHandle.Create ();
                 NativeArrayUnsafeUtility.SetAtomicSafetyHandle (ref nativeData, sh);
-                return new NativeWrappedData<T1> { Array = nativeData, SafetyHandle = sh };
+                return new NativeWrappedData<T> { Array = nativeData, SafetyHandle = sh };
 #else
-                return new NativeWrappedData<T1> { Array = NativeArrayUnsafeUtility.ConvertExistingDataToNativeArray<T1> (ptr, managedData.Length, Allocator.None) };
+                return new NativeWrappedData<T0> { Array = NativeArrayUnsafeUtility.ConvertExistingDataToNativeArray<T1> (ptr, managedData.Length, Allocator.None) };
 #endif
             }
         }
