@@ -74,23 +74,28 @@ class TestJobSystem : EcsUnityJobSystem<TestJob, C1> {
 struct TestJob : IEcsUnityJob<C1> {
     public float DeltaTime;
     NativeArray<int> _entities;
-    NativeArray<JobPoolItem<C1>> _pool;
+    NativeArray<C1> _pool1;
+    NativeArray<int> _indices1;
 
-    public void Init (NativeArray<int> entities, NativeArray<JobPoolItem<C1>> pool) {
-        // We should cache input collections to use it later.
+    public void Init (NativeArray<int> entities, NativeArray<C1> pool1, NativeArray<int> indices1) {
+        // entities array.
         _entities = entities;
-        _pool = pool;
+        // dense array of components.
+        _pool1 = pool1;
+        // sparse indices array of components.
+        _indices1 = indices1;
     }
 
     public void Execute (int index) {
         // We should get entity id from entities collection. 
         var entity = _entities[index];
         // To get access for C1 data.
-        var c1 = _pool[entity];
+        var pool1Idx = _indices1[entity];
+        var c1 = _pool1[pool1Idx];
         // We can change it.
-        c1.Data.Id = (c1.Data.Id + 1) % 10000;
-        // And save back.
-        _pool[entity] = c1;
+        c1.Id = (c1.Id + 1) % 10000;
+        // And save it back.
+        _pool1[pool1Idx] = c1;
     }
 }
 ```

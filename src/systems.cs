@@ -21,15 +21,19 @@ namespace Leopotam.EcsLite.Threads.Unity {
                 _pool1 = world.GetPool<T1> ();
                 _filter = GetFilter (world);
             }
-            var nativeEntities = NativeHelpers.WrapToNative (_filter.GetRawEntities ());
-            var nativePool1 = NativeHelpers.WrapToNative (_pool1.GetRawItems ());
+            var nEntities = NativeHelpers.WrapToNative (_filter.GetRawEntities ());
+            var nDense1 = NativeHelpers.WrapToNative (_pool1.GetRawDenseItems ());
+            var nSparse1 = NativeHelpers.WrapToNative (_pool1.GetRawSparseItems ());
             TJob job = default;
-            job.Init (nativeEntities.Array, nativePool1.Array);
+            job.Init (
+                nEntities.Array,
+                nDense1.Array, nSparse1.Array);
             SetData (systems, ref job);
             job.Schedule (_filter.GetEntitiesCount (), GetChunkSize (systems)).Complete ();
 #if UNITY_EDITOR
-            NativeHelpers.UnwrapFromNative (nativeEntities);
-            NativeHelpers.UnwrapFromNative (nativePool1);
+            NativeHelpers.UnwrapFromNative (nEntities);
+            NativeHelpers.UnwrapFromNative (nDense1);
+            NativeHelpers.UnwrapFromNative (nSparse1);
 #endif
         }
 
@@ -51,17 +55,24 @@ namespace Leopotam.EcsLite.Threads.Unity {
                 _pool2 = world.GetPool<T2> ();
                 _filter = GetFilter (world);
             }
-            var nativeEntities = NativeHelpers.WrapToNative (_filter.GetRawEntities ());
-            var nativePool1 = NativeHelpers.WrapToNative (_pool1.GetRawItems ());
-            var nativePool2 = NativeHelpers.WrapToNative (_pool2.GetRawItems ());
+            var nEntities = NativeHelpers.WrapToNative (_filter.GetRawEntities ());
+            var nDense1 = NativeHelpers.WrapToNative (_pool1.GetRawDenseItems ());
+            var nSparse1 = NativeHelpers.WrapToNative (_pool1.GetRawSparseItems ());
+            var nDense2 = NativeHelpers.WrapToNative (_pool2.GetRawDenseItems ());
+            var nSparse2 = NativeHelpers.WrapToNative (_pool2.GetRawSparseItems ());
             TJob job = default;
-            job.Init (nativeEntities.Array, nativePool1.Array, nativePool2.Array);
+            job.Init (
+                nEntities.Array,
+                nDense1.Array, nSparse1.Array,
+                nDense2.Array, nSparse2.Array);
             SetData (systems, ref job);
             job.Schedule (_filter.GetEntitiesCount (), GetChunkSize (systems)).Complete ();
 #if UNITY_EDITOR
-            NativeHelpers.UnwrapFromNative (nativeEntities);
-            NativeHelpers.UnwrapFromNative (nativePool1);
-            NativeHelpers.UnwrapFromNative (nativePool2);
+            NativeHelpers.UnwrapFromNative (nEntities);
+            NativeHelpers.UnwrapFromNative (nDense1);
+            NativeHelpers.UnwrapFromNative (nSparse1);
+            NativeHelpers.UnwrapFromNative (nDense2);
+            NativeHelpers.UnwrapFromNative (nSparse2);
 #endif
         }
 
@@ -87,18 +98,28 @@ namespace Leopotam.EcsLite.Threads.Unity {
                 _filter = GetFilter (world);
             }
             var nEntities = NativeHelpers.WrapToNative (_filter.GetRawEntities ());
-            var nPool1 = NativeHelpers.WrapToNative (_pool1.GetRawItems ());
-            var nPool2 = NativeHelpers.WrapToNative (_pool2.GetRawItems ());
-            var nPool3 = NativeHelpers.WrapToNative (_pool3.GetRawItems ());
+            var nDense1 = NativeHelpers.WrapToNative (_pool1.GetRawDenseItems ());
+            var nSparse1 = NativeHelpers.WrapToNative (_pool1.GetRawSparseItems ());
+            var nDense2 = NativeHelpers.WrapToNative (_pool2.GetRawDenseItems ());
+            var nSparse2 = NativeHelpers.WrapToNative (_pool2.GetRawSparseItems ());
+            var nDense3 = NativeHelpers.WrapToNative (_pool3.GetRawDenseItems ());
+            var nSparse3 = NativeHelpers.WrapToNative (_pool3.GetRawSparseItems ());
             TJob job = default;
-            job.Init (nEntities.Array, nPool1.Array, nPool2.Array, nPool3.Array);
+            job.Init (
+                nEntities.Array,
+                nDense1.Array, nSparse1.Array,
+                nDense2.Array, nSparse2.Array,
+                nDense3.Array, nSparse3.Array);
             SetData (systems, ref job);
             job.Schedule (_filter.GetEntitiesCount (), GetChunkSize (systems)).Complete ();
 #if UNITY_EDITOR
             NativeHelpers.UnwrapFromNative (nEntities);
-            NativeHelpers.UnwrapFromNative (nPool1);
-            NativeHelpers.UnwrapFromNative (nPool2);
-            NativeHelpers.UnwrapFromNative (nPool3);
+            NativeHelpers.UnwrapFromNative (nDense1);
+            NativeHelpers.UnwrapFromNative (nSparse1);
+            NativeHelpers.UnwrapFromNative (nDense2);
+            NativeHelpers.UnwrapFromNative (nSparse2);
+            NativeHelpers.UnwrapFromNative (nDense3);
+            NativeHelpers.UnwrapFromNative (nSparse3);
 #endif
         }
 
@@ -127,20 +148,33 @@ namespace Leopotam.EcsLite.Threads.Unity {
                 _filter = GetFilter (world);
             }
             var nEntities = NativeHelpers.WrapToNative (_filter.GetRawEntities ());
-            var nPool1 = NativeHelpers.WrapToNative (_pool1.GetRawItems ());
-            var nPool2 = NativeHelpers.WrapToNative (_pool2.GetRawItems ());
-            var nPool3 = NativeHelpers.WrapToNative (_pool3.GetRawItems ());
-            var nPool4 = NativeHelpers.WrapToNative (_pool4.GetRawItems ());
+            var nDense1 = NativeHelpers.WrapToNative (_pool1.GetRawDenseItems ());
+            var nSparse1 = NativeHelpers.WrapToNative (_pool1.GetRawSparseItems ());
+            var nDense2 = NativeHelpers.WrapToNative (_pool2.GetRawDenseItems ());
+            var nSparse2 = NativeHelpers.WrapToNative (_pool2.GetRawSparseItems ());
+            var nDense3 = NativeHelpers.WrapToNative (_pool3.GetRawDenseItems ());
+            var nSparse3 = NativeHelpers.WrapToNative (_pool3.GetRawSparseItems ());
+            var nDense4 = NativeHelpers.WrapToNative (_pool4.GetRawDenseItems ());
+            var nSparse4 = NativeHelpers.WrapToNative (_pool4.GetRawSparseItems ());
             TJob job = default;
-            job.Init (nEntities.Array, nPool1.Array, nPool2.Array, nPool3.Array, nPool4.Array);
+            job.Init (
+                nEntities.Array,
+                nDense1.Array, nSparse1.Array,
+                nDense2.Array, nSparse2.Array,
+                nDense3.Array, nSparse3.Array,
+                nDense4.Array, nSparse4.Array);
             SetData (systems, ref job);
             job.Schedule (_filter.GetEntitiesCount (), GetChunkSize (systems)).Complete ();
 #if UNITY_EDITOR
             NativeHelpers.UnwrapFromNative (nEntities);
-            NativeHelpers.UnwrapFromNative (nPool1);
-            NativeHelpers.UnwrapFromNative (nPool2);
-            NativeHelpers.UnwrapFromNative (nPool3);
-            NativeHelpers.UnwrapFromNative (nPool4);
+            NativeHelpers.UnwrapFromNative (nDense1);
+            NativeHelpers.UnwrapFromNative (nSparse1);
+            NativeHelpers.UnwrapFromNative (nDense2);
+            NativeHelpers.UnwrapFromNative (nSparse2);
+            NativeHelpers.UnwrapFromNative (nDense3);
+            NativeHelpers.UnwrapFromNative (nSparse3);
+            NativeHelpers.UnwrapFromNative (nDense4);
+            NativeHelpers.UnwrapFromNative (nSparse4);
 #endif
         }
 
@@ -158,7 +192,7 @@ namespace Leopotam.EcsLite.Threads.Unity {
         where T1 : unmanaged {
         void Init (
             NativeArray<int> entities,
-            NativeArray<T1> pool);
+            NativeArray<T1> pool1, NativeArray<int> indices1);
     }
 
     public interface IEcsUnityJob<T1, T2> : IJobParallelFor
@@ -166,8 +200,8 @@ namespace Leopotam.EcsLite.Threads.Unity {
         where T2 : unmanaged {
         void Init (
             NativeArray<int> entities,
-            NativeArray<T1> pool1,
-            NativeArray<T2> pool2);
+            NativeArray<T1> pool1, NativeArray<int> indices1,
+            NativeArray<T2> pool2, NativeArray<int> indices2);
     }
 
     public interface IEcsUnityJob<T1, T2, T3> : IJobParallelFor
@@ -176,9 +210,9 @@ namespace Leopotam.EcsLite.Threads.Unity {
         where T3 : unmanaged {
         void Init (
             NativeArray<int> entities,
-            NativeArray<T1> pool1,
-            NativeArray<T2> pool2,
-            NativeArray<T3> pool3);
+            NativeArray<T1> pool1, NativeArray<int> indices1,
+            NativeArray<T2> pool2, NativeArray<int> indices2,
+            NativeArray<T3> pool3, NativeArray<int> indices3);
     }
 
     public interface IEcsUnityJob<T1, T2, T3, T4> : IJobParallelFor
@@ -188,10 +222,10 @@ namespace Leopotam.EcsLite.Threads.Unity {
         where T4 : unmanaged {
         void Init (
             NativeArray<int> entities,
-            NativeArray<T1> pool1,
-            NativeArray<T2> pool2,
-            NativeArray<T3> pool3,
-            NativeArray<T4> pool4);
+            NativeArray<T1> pool1, NativeArray<int> indices1,
+            NativeArray<T2> pool2, NativeArray<int> indices2,
+            NativeArray<T3> pool3, NativeArray<int> indices3,
+            NativeArray<T4> pool4, NativeArray<int> indices4);
     }
 
     static class NativeHelpers {
@@ -203,7 +237,7 @@ namespace Leopotam.EcsLite.Threads.Unity {
                 NativeArrayUnsafeUtility.SetAtomicSafetyHandle (ref nativeData, sh);
                 return new NativeWrappedData<T> { Array = nativeData, SafetyHandle = sh };
 #else
-                return new NativeWrappedData<T0> { Array = NativeArrayUnsafeUtility.ConvertExistingDataToNativeArray<T1> (ptr, managedData.Length, Allocator.None) };
+                return new NativeWrappedData<T> { Array = NativeArrayUnsafeUtility.ConvertExistingDataToNativeArray<T> (ptr, managedData.Length, Allocator.None) };
 #endif
             }
         }
