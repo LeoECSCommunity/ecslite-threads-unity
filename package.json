@@ -2,9 +2,9 @@
     "name": "com.leopotam.ecslite.threads.unity",
     "author": "Leopotam",
     "displayName": "LeoECS Lite Unity Jobs",
-    "description": "LeoECS Lite Unity Jobs support for LeoECS Lite.",
+    "description": "Unity Jobs support for LeoECS Lite.",
     "unity": "2020.3",
-    "version": "2021.5.22",
+    "version": "2021.6.22-preview",
     "keywords": [
         "leoecslite",
         "leoecs",
