@@ -4,7 +4,7 @@
     "displayName": "LeoECS Lite Unity Jobs",
     "description": "Unity Jobs support for LeoECS Lite.",
     "unity": "2020.3",
-    "version": "2021.6.22",
+    "version": "2021.11.22-preview",
     "keywords": [
         "leoecslite",
         "leoecs",
