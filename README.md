@@ -74,7 +74,9 @@ class TestJobSystem : EcsUnityJobSystem<TestJob, C1> {
 struct TestJob : IEcsUnityJob<C1> {
     public float DeltaTime;
     NativeArray<int> _entities;
+    [NativeDisableParallelForRestriction]
     NativeArray<C1> _pool1;
+    [NativeDisableParallelForRestriction]
     NativeArray<int> _indices1;
 
     public void Init (NativeArray<int> entities, NativeArray<C1> pool1, NativeArray<int> indices1) {
@@ -99,6 +101,9 @@ struct TestJob : IEcsUnityJob<C1> {
     }
 }
 ```
+
+> **Important!** Don't forget to add `NativeDisableParallelForRestriction` attribute to pool/indices arrays.
+
 
 # License
 The software is released under the terms of the [MIT license](./LICENSE.md).
