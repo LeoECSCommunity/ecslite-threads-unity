@@ -1,10 +1,10 @@
 {
-    "name": "com.leopotam.ecslite.threads.unity",
-    "author": "Leopotam",
-    "displayName": "LeoECS Lite Unity Jobs",
-    "description": "Unity Jobs support for LeoECS Lite.",
+    "name": "com.leoecscommunity.ecslite.threads.unity",
+    "author": "LeoECSCommunity",
+    "displayName": "LeoECSCommunity Lite Unity Jobs",
+    "description": "Unity Jobs support for LeoECSCommunity Lite.",
     "unity": "2020.3",
-    "version": "2021.11.22",
+    "version": "1.0.0",
     "keywords": [
         "leoecslite",
         "leoecs",
@@ -15,6 +15,6 @@
     "dependencies": {},
     "repository": {
         "type": "git",
-        "url": "https://github.com/Leopotam/ecslite-threads-unity.git"
+        "url": "https://github.com/LeoECSCommunity/ecslite-threads-unity.git"
     }
 }
